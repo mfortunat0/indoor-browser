@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#201c2c"
+      "backgroundColor": "#1C152B"
     },
     "ios": {
       "supportsTablet": true
@@ -18,7 +18,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#201c2c"
+        "backgroundColor": "#1C152B"
       },
       "package": "com.mfortunato.indoorbrowserci"
     },
