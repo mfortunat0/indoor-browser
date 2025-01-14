@@ -18,7 +18,7 @@ export default function App() {
         ref={webviewRef}
         style={styles.browser}
         source={{
-          uri: "http://206.189.185.236:2809/start?client=example&orientation=vertical",
+          uri: "http://157.245.139.146:2809/start?client=example&orientation=vertical",
         }}
         allowsFullscreenVideo
         allowsInlineMediaPlayback
