@@ -27,14 +27,16 @@
     },
     "plugins": [
       [
-        "expo-build-properties",
+        "expo-video",
         {
-          "android": {
-            "usesCleartextTraffic": true
-          },
-          "ios": {
-            "flipper": true
-          }
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ],
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "DEFAULT"
         }
       ]
     ],

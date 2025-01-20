@@ -1,36 +1,35 @@
 import { StatusBar } from "expo-status-bar";
-import { useRef } from "react";
+import { useVideoPlayer, VideoView } from "expo-video";
 import { StyleSheet, View } from "react-native";
-import { WebView } from "react-native-webview";
+import { useEffect } from "react";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 export default function App() {
-  const webviewRef = useRef<WebView>(null);
+  const videoSource = "http://192.168.100.134:2809/example/final.mp4";
+
+  const player = useVideoPlayer(videoSource, (player) => {
+    player.loop = true;
+    player.play();
+  });
+
+  async function changeScreenOrientation() {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+    );
+  }
+
+  useEffect(() => {
+    changeScreenOrientation();
+  }, []);
+
   return (
-    <View
-      style={styles.container}
-      onTouchStart={() => {
-        if (webviewRef.current) {
-          webviewRef.current.reload();
-        }
-      }}
-    >
-      <WebView
-        ref={webviewRef}
-        style={styles.browser}
-        source={{
-          uri: "http://157.245.139.146:2809/start?client=example&orientation=vertical",
-        }}
-        allowsFullscreenVideo
-        allowsInlineMediaPlayback
-        startInLoadingState
-        cacheEnabled
-        mixedContentMode="always"
-        allowUniversalAccessFromFileURLs
-        onTouchStart={() => {
-          if (webviewRef.current) {
-            webviewRef.current.reload();
-          }
-        }}
+    <View style={styles.container}>
+      <VideoView
+        style={styles.video}
+        player={player}
+        allowsFullscreen
+        allowsPictureInPicture
+        nativeControls={false}
       />
       <StatusBar hidden />
     </View>
@@ -38,11 +37,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  browser: {
+  video: {
     flex: 1,
   },
   container: {
     flex: 1,
-    backgroundColor: "#201c2c",
+    backgroundColor: "#000",
   },
 });
