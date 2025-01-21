@@ -38,7 +38,8 @@
         {
           "initialOrientation": "DEFAULT"
         }
-      ]
+      ],
+      ["expo-build-properties", { "android": { "usesCleartextTraffic": true } }]
     ],
     "extra": {
       "eas": {

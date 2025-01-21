@@ -5,10 +5,13 @@ import { useEffect } from "react";
 import * as ScreenOrientation from "expo-screen-orientation";
 
 export default function App() {
-  const videoSource = "http://192.168.100.134:2809/example/final.mp4";
+  const ipServer = "192.168.2.111";
+  const client = "example";
+  const videoSource = `http://${ipServer}:2809/${client}/final.mp4`;
 
   const player = useVideoPlayer(videoSource, (player) => {
     player.loop = true;
+    player.muted = true;
     player.play();
   });
 
