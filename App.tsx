@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import * as ScreenOrientation from "expo-screen-orientation";
 
 export default function App() {
-  const ipServer = "192.168.2.111";
+  const ipServer = "192.81.217.78";
   const client = "example";
   const videoSource = `http://${ipServer}:2809/${client}/final.mp4`;
 
@@ -22,7 +22,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    changeScreenOrientation();
+    // changeScreenOrientation();
   }, []);
 
   return (
@@ -33,6 +33,7 @@ export default function App() {
         allowsFullscreen
         allowsPictureInPicture
         nativeControls={false}
+        onTouchEnd={(event) => {}}
       />
       <StatusBar hidden />
     </View>
