@@ -1,39 +1,54 @@
 import { StatusBar } from "expo-status-bar";
-import { useVideoPlayer, VideoView } from "expo-video";
-import { StyleSheet, View } from "react-native";
-import { useEffect } from "react";
-import * as ScreenOrientation from "expo-screen-orientation";
+import { useRef } from "react";
+import { ToastAndroid, StyleSheet, View } from "react-native";
+import { WebView } from "react-native-webview";
 
 export default function App() {
-  const ipServer = "192.81.217.78";
-  const client = "example";
-  const videoSource = `http://${ipServer}:2809/${client}/final.mp4`;
-
-  const player = useVideoPlayer(videoSource, (player) => {
-    player.loop = true;
-    player.muted = true;
-    player.play();
-  });
-
-  async function changeScreenOrientation() {
-    await ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-    );
-  }
-
-  useEffect(() => {
-    // changeScreenOrientation();
-  }, []);
-
+  const webviewRef = useRef<WebView>(null);
   return (
-    <View style={styles.container}>
-      <VideoView
-        style={styles.video}
-        player={player}
-        allowsFullscreen
-        allowsPictureInPicture
-        nativeControls={false}
-        onTouchEnd={(event) => {}}
+    <View
+      style={styles.container}
+      onTouchStart={() => {
+        if (webviewRef.current) {
+          webviewRef.current.reload();
+        }
+      }}
+    >
+      <WebView
+        ref={webviewRef}
+        style={styles.browser}
+        source={{ uri: "http://192.168.100.100:5500/" }}
+        allowsFullscreenVideo
+        allowsInlineMediaPlayback
+        allowsPictureInPictureMediaPlayback={false}
+        allowUniversalAccessFromFileURLs
+        startInLoadingState
+        cacheEnabled
+        mixedContentMode="always"
+        onError={() => {
+          setTimeout(() => {
+            if (webviewRef.current) {
+              ToastAndroid.show("Error, reloading now", ToastAndroid.BOTTOM);
+              webviewRef.current.reload();
+            }
+          }, 2000);
+        }}
+        onHttpError={() => {
+          setTimeout(() => {
+            if (webviewRef.current) {
+              ToastAndroid.show(
+                "Http Error, reloading now",
+                ToastAndroid.BOTTOM
+              );
+              webviewRef.current.reload();
+            }
+          }, 2000);
+        }}
+        onTouchStart={() => {
+          if (webviewRef.current) {
+            webviewRef.current.reload();
+          }
+        }}
       />
       <StatusBar hidden />
     </View>
@@ -41,11 +56,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  video: {
+  browser: {
     flex: 1,
   },
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#fff",
   },
 });
