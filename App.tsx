@@ -17,7 +17,9 @@ export default function App() {
       <WebView
         ref={webviewRef}
         style={styles.browser}
-        source={{ uri: "http://192.168.100.100:5500/" }}
+        source={{
+          uri: "http://137.184.209.81:2809/start?client=frangoDoCabelo&orientation=vertical",
+        }}
         allowsFullscreenVideo
         allowsInlineMediaPlayback
         allowsPictureInPictureMediaPlayback={false}
@@ -36,10 +38,7 @@ export default function App() {
         onHttpError={() => {
           setTimeout(() => {
             if (webviewRef.current) {
-              ToastAndroid.show(
-                "Http Error, reloading now",
-                ToastAndroid.BOTTOM
-              );
+              ToastAndroid.show("Error, reloading now", ToastAndroid.BOTTOM);
               webviewRef.current.reload();
             }
           }, 2000);
