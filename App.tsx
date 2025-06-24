@@ -5,6 +5,9 @@ import { WebView } from "react-native-webview";
 
 export default function App() {
   const webviewRef = useRef<WebView>(null);
+  const uri =
+    "http://137.184.209.81:2809/start?client=frangoDoCabelo&orientation=vertical";
+
   return (
     <View
       style={styles.container}
@@ -18,7 +21,7 @@ export default function App() {
         ref={webviewRef}
         style={styles.browser}
         source={{
-          uri: "http://137.184.209.81:2809/start?client=frangoDoCabelo&orientation=vertical",
+          uri,
         }}
         allowsFullscreenVideo
         allowsInlineMediaPlayback
